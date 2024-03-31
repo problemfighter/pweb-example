@@ -24,6 +24,7 @@ class PWebBasicModule(PWebComponentRegister):
 
     def run_on_start(self, pweb_app, config):
         PWebAuthRegistry.add_start_with_url_in_skip("/pweb-socket")
+        print(f"On Start _is_run_on_wsgi {pweb_app._is_run_on_wsgi}")
         if pweb_app.is_app_loaded():
             print("Call Once during app load")
             PWebSocket.register(pweb_app=pweb_app)
