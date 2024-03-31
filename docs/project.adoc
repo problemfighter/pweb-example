@@ -4,3 +4,13 @@
 
 * Install ``pip install -U pwebb``
 * Create new project by ``pwebcli project init -n <specify_project_name>``
+
+
+== Project Publish
+
+```bash
+python -m pip install --upgrade pip
+pip install -U twine wheel
+
+python setup.py sdist bdist_wheel && twine upload dist/*
+```

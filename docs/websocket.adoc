@@ -29,5 +29,5 @@ CORS_CONFIG:
 
 gunicorn with eventlet `pip install eventlet`
 ```yml
-gunicorn --worker-class eventlet --workers 3 --bind unix:PWeb.sock pweb_app:wsgi
+gunicorn --worker-class eventlet --workers 3 --env env=Prod --bind unix:PWeb.sock pweb_app:wsgi --log-file pweb-app.log --capture-output
 ```
