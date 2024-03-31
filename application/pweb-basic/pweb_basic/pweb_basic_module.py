@@ -26,7 +26,7 @@ class PWebBasicModule(PWebComponentRegister):
         PWebAuthRegistry.add_start_with_url_in_skip("/pweb-socket")
         if pweb_app.is_app_loaded():
             print("Call Once during app load")
-            PWebSocket.register(pweb_app=pweb_app)
+        PWebSocket.register(pweb_app=pweb_app)
 
     def register_model(self, pweb_db):
         pass
