@@ -25,10 +25,7 @@ class PWebBasicModule(PWebComponentRegister):
         pass
 
     def run_on_start(self, pweb_app, config):
-        print("run_on_start Environment : " + os.environ.get('env', 'Local env'))
         print("run_on_start Environment : " + os.environ.get('ENV', 'Local ENV'))
-        print("run_on_start Environment : " + os.environ.get('abulkabul', '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'))
-        print("run_on_start Environment : " + os.environ.get('XXXX', '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'))
         print(os.environ)
         PWebAuthRegistry.add_start_with_url_in_skip("/pweb-socket")
         if pweb_app.is_app_loaded():
