@@ -1,3 +1,5 @@
+import os
+
 from pweb import PWebComponentRegister, PWebModuleDetails
 from pweb_auth import PWebAuthRegistry
 from pweb_basic.controller.basic_controller import basic_controller
@@ -23,6 +25,7 @@ class PWebBasicModule(PWebComponentRegister):
         pass
 
     def run_on_start(self, pweb_app, config):
+        print("run_on_start Environment : " + os.environ.get('env', 'Local'))
         PWebAuthRegistry.add_start_with_url_in_skip("/pweb-socket")
         if pweb_app.is_app_loaded():
             print("Call Once during app load")
