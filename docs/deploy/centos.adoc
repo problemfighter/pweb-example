@@ -77,3 +77,17 @@ server {
 ```
 uwsgi --ini uwsgi.ini
 ```
+
+== Create Service File
+```
+[Unit]
+Description=PWeb Application
+After=network.target
+
+[Service]
+WorkingDirectory=/home/v-host/pweb-example
+ExecStart=/home/v-host/pweb-example/venv/bin/uwsgi --ini uwsgi.ini
+
+[Install]
+WantedBy=multi-user.target
+```
