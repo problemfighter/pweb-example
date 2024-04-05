@@ -25,3 +25,4 @@ class Config(PWebAppConfig):
     SYSTEM_AUTH_BASE: AuthBase = AuthBase.EMAIL
     ENABLE_REGISTRATION: bool = True
     IS_ENABLE_AUTH: bool = True
+
