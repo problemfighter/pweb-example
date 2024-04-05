@@ -23,4 +23,5 @@ class Config(PWebAppConfig):
     TOTAL_ITEM_PER_PAGE: int = 5
     TABLE_ITEM_PER_PAGE_OPTIONS: str = [5, 10, 25, 50, 100, 200, 500]
     SYSTEM_AUTH_BASE: AuthBase = AuthBase.EMAIL
+    ENABLE_REGISTRATION: bool = True
     IS_ENABLE_AUTH: bool = True
