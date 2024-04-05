@@ -1,0 +1,72 @@
+
+
+== Server Package Installation
+```bash
+# Installing Essential Libraries
+dnf install -y wget vim net-tools bind-utils unzip git
+
+# Install Python and pip 3.11 or 3.12
+dnf install -y python3.11 python3.11-pip
+
+# Install Nginx & Required Firewall
+dnf install -y nginx
+systemctl enable --now nginx
+
+firewall-cmd --zone=public --permanent --add-port=80/tcp
+firewall-cmd --zone=public --permanent --add-port=443/tcp
+firewall-cmd --reload
+```
+
+== Running Project
+```bash
+# Create project directory
+mkdir -p /home/v-host/
+cd /home/v-host/
+
+# Clone the repository. (-b dev means clone the dev branch)
+git clone https://github.com/banglafighter/pweb-example.git -b dev
+
+# Install Project required dependencies and other configuration
+cd /home/v-host/pweb-example
+
+# Install PWeb Library
+pip3.11 install -U pwebb pweb-cli # Library for PWeb framework. Will install globally
+
+# Initiate Project Dependencies
+pwebcli project update
+```
+
+== Install uWsgi
+```bash
+# Install OS Dependency
+dnf install -y python3.11-devel openssl-devel gcc
+
+# Active virtual Environment
+source venv/bin/activate
+pip install uwsgi
+
+# Check HTTPS Package are available or not
+uwsgi --help | grep https
+```
+
+
+== Nginx Configuration for uWsgi
+```conf
+server {
+    listen       80;
+    server_name  _;
+
+
+    location / {
+        include uwsgi_params;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        uwsgi_pass      unix:/home/pweb-example/PWeb.sock;
+    }
+}
+```

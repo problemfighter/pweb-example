@@ -30,6 +30,26 @@ server {
 
 ```
 
+```
+server {
+    listen       80;
+    server_name  _;
+
+
+    location / {
+        include uwsgi_params;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        uwsgi_pass      unix:/home/pweb-example/PWeb.sock;
+    }
+}
+```
+
 env.yml
 ```yml
 CORS_CONFIG:
@@ -40,4 +60,7 @@ CORS_CONFIG:
 gunicorn with eventlet `pip install eventlet`
 ```yml
 gunicorn --worker-class eventlet --workers 3 --env env=Prod --preload --capture-output --bind unix:PWeb.sock pweb_app:wsgi --log-file pweb-app.log
+gunicorn --workers 3 --env env=Prod --capture-output --bind unix:PWeb.sock pweb_app:wsgi
 ```
+
+uwsgi --http :5000 --gevent 1000 --http-websockets --master --env env=Prod -m pweb_app:wsgi
