@@ -26,6 +26,7 @@ dependencies:
         - url: https://github.com/banglafighter/pweb.git
         - url: https://github.com/banglafighter/pweb-ui.git
         - url: https://github.com/banglafighter/pweb-extra.git
+        - url: https://github.com/banglafighter/pweb-http.git
 
   - name: Application
     dir: application
